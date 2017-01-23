@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "453E8DF11E2DC40D0033FB17"
-               BuildableName = "HSWarehouseMmanagement.app"
-               BlueprintName = "HSWarehouseMmanagement"
+               BuildableName = "&#x676d;&#x6c34;&#x4ed3;&#x5e93;.app"
+               BlueprintName = "&#x676d;&#x6c34;&#x4ed3;&#x5e93;"
                ReferencedContainer = "container:HSWarehouseMmanagement.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -53,8 +53,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "453E8DF11E2DC40D0033FB17"
-            BuildableName = "HSWarehouseMmanagement.app"
-            BlueprintName = "HSWarehouseMmanagement"
+            BuildableName = "&#x676d;&#x6c34;&#x4ed3;&#x5e93;.app"
+            BlueprintName = "&#x676d;&#x6c34;&#x4ed3;&#x5e93;"
             ReferencedContainer = "container:HSWarehouseMmanagement.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -76,8 +76,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "453E8DF11E2DC40D0033FB17"
-            BuildableName = "HSWarehouseMmanagement.app"
-            BlueprintName = "HSWarehouseMmanagement"
+            BuildableName = "&#x676d;&#x6c34;&#x4ed3;&#x5e93;.app"
+            BlueprintName = "&#x676d;&#x6c34;&#x4ed3;&#x5e93;"
             ReferencedContainer = "container:HSWarehouseMmanagement.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -95,8 +95,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "453E8DF11E2DC40D0033FB17"
-            BuildableName = "HSWarehouseMmanagement.app"
-            BlueprintName = "HSWarehouseMmanagement"
+            BuildableName = "&#x676d;&#x6c34;&#x4ed3;&#x5e93;.app"
+            BlueprintName = "&#x676d;&#x6c34;&#x4ed3;&#x5e93;"
             ReferencedContainer = "container:HSWarehouseMmanagement.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
