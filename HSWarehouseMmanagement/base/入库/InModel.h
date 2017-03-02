@@ -10,26 +10,15 @@
 
 @interface InModel : JSONModel
 
-/* _txmhTextField.text = [dic objectForKey:@"txm"]?[dic objectForKey:@"txm"]:@"";
- _kwbhTextField.text = [dic objectForKey:@"kwbh"]?[dic objectForKey:@"kwbh"]:@"";
- _nameLabel.text = [dic objectForKey:@"mc"]?[dic objectForKey:@"mc"]:@"";
- _kwNameLabel.text = [dic objectForKey:@"kwmc"]?[dic objectForKey:@"kwmc"]:@"";
- _ggLabel.text = [dic objectForKey:@"gg"]?[dic objectForKey:@"gg"]:@"";
- _modelLabel.text = [dic objectForKey:@"xh"]?[dic objectForKey:@"xh"]:@"";
- _jldwLabel.text = [dic objectForKey:@"jldw"]?[dic objectForKey:@"jldw"]:@"";
- _kcslLabel.text = [dic objectForKey:@"kcsl"]?[dic objectForKey:@"kcsl"]:@"";
- _flLabel.text = [dic objectForKey:@"fl"]?[dic objectForKey:@"fl"]:@"";
- _pingpLabel.text */
-
-@property (nonatomic, strong) NSString *txm;
-@property (nonatomic, strong) NSString *kwbh;
-@property (nonatomic, strong) NSString *mc;
-@property (nonatomic, strong) NSString *kwmc;
-@property (nonatomic, strong) NSString *gg;
-@property (nonatomic, strong) NSString *xh;
-@property (nonatomic, strong) NSString *jldw;
-@property (nonatomic, strong) NSString *kcsl;
-@property (nonatomic, strong) NSString *fl;
-@property (nonatomic, strong) NSString *pp;
+@property (nonatomic, strong) NSString *txm;    //条形码
+@property (nonatomic, strong) NSString *kwbh;   //库位编号
+@property (nonatomic, strong) NSString *mc;     //名称
+@property (nonatomic, strong) NSString *kwmc;   //库位名称
+@property (nonatomic, strong) NSString *gg;     //规格
+@property (nonatomic, strong) NSString *xh;     //型号
+@property (nonatomic, strong) NSString *jldw;   //计量单位
+@property (nonatomic, strong) NSString *kcsl;   //库存数量
+@property (nonatomic, strong) NSString *fl;     //分类
+@property (nonatomic, strong) NSString *pp;     //品牌
 
 @end

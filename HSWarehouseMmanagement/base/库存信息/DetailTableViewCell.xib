@@ -16,16 +16,25 @@
             <rect key="frame" x="0.0" y="0.0" width="394" height="117"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="394" height="117"/>
+                <rect key="frame" x="0.0" y="0.0" width="394" height="116"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VLq-Nr-mmM">
+                        <rect key="frame" x="10" y="5" width="374" height="106.5"/>
+                        <color key="backgroundColor" red="0.50196081400000003" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="库位编号：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Clu-F4-Jyv">
                         <rect key="frame" x="18" y="27" width="87" height="18"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="87" id="Jqb-7T-CT3"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <nil key="textColor"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="数        量：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9rh-vX-m7M">
@@ -34,7 +43,7 @@
                             <constraint firstAttribute="width" constant="87" id="rMz-kd-7Gp"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <nil key="textColor"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="库位名称：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0O6-09-xVc">
@@ -43,25 +52,25 @@
                             <constraint firstAttribute="width" constant="87" id="Zwx-95-wiF"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <nil key="textColor"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="kwNum" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oqr-2p-wk8">
                         <rect key="frame" x="110" y="27" width="276" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <nil key="textColor"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="num" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qFP-9g-8ci">
                         <rect key="frame" x="110" y="48" width="276" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="kwName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DOT-1P-6TT">
                         <rect key="frame" x="110" y="71" width="276" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
@@ -69,12 +78,16 @@
                     <constraint firstItem="0O6-09-xVc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="6CA-QM-eIA"/>
                     <constraint firstAttribute="trailingMargin" secondItem="oqr-2p-wk8" secondAttribute="trailing" id="6KX-SH-5QP"/>
                     <constraint firstAttribute="trailingMargin" secondItem="qFP-9g-8ci" secondAttribute="trailing" id="6eG-dA-bjQ"/>
+                    <constraint firstItem="VLq-Nr-mmM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Edg-y3-kA3"/>
                     <constraint firstItem="Clu-F4-Jyv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="H65-f2-MIX"/>
                     <constraint firstItem="0O6-09-xVc" firstAttribute="top" secondItem="9rh-vX-m7M" secondAttribute="bottom" constant="5" id="JFj-uZ-sT5"/>
+                    <constraint firstAttribute="trailing" secondItem="VLq-Nr-mmM" secondAttribute="trailing" constant="10" id="JGc-vj-5if"/>
                     <constraint firstItem="oqr-2p-wk8" firstAttribute="leading" secondItem="Clu-F4-Jyv" secondAttribute="trailing" constant="5" id="QPj-Fn-lKr"/>
+                    <constraint firstItem="VLq-Nr-mmM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="Rby-vN-tDK"/>
                     <constraint firstItem="DOT-1P-6TT" firstAttribute="centerY" secondItem="0O6-09-xVc" secondAttribute="centerY" id="Z2c-j6-0sG"/>
                     <constraint firstItem="9rh-vX-m7M" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="d3U-ML-Toy"/>
                     <constraint firstItem="9rh-vX-m7M" firstAttribute="top" secondItem="Clu-F4-Jyv" secondAttribute="bottom" constant="5" id="eNw-ZE-boj"/>
+                    <constraint firstAttribute="bottom" secondItem="VLq-Nr-mmM" secondAttribute="bottom" constant="5" id="ent-bO-rSx"/>
                     <constraint firstItem="qFP-9g-8ci" firstAttribute="leading" secondItem="9rh-vX-m7M" secondAttribute="trailing" constant="5" id="fqX-sB-Adg"/>
                     <constraint firstItem="9rh-vX-m7M" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ifc-fS-512"/>
                     <constraint firstItem="qFP-9g-8ci" firstAttribute="centerY" secondItem="9rh-vX-m7M" secondAttribute="centerY" id="qk5-Rp-Ow7"/>
@@ -88,7 +101,7 @@
                 <outlet property="kwNum" destination="oqr-2p-wk8" id="ByJ-yF-r78"/>
                 <outlet property="num" destination="qFP-9g-8ci" id="dby-NK-kHW"/>
             </connections>
-            <point key="canvasLocation" x="-35" y="31"/>
+            <point key="canvasLocation" x="-35" y="30.5"/>
         </tableViewCell>
     </objects>
 </document>

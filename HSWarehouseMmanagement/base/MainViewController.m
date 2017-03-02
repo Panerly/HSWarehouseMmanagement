@@ -12,6 +12,7 @@
 #import "StockViewController.h"
 #import "WarehousingDetailVC.h"
 #import "InViewController.h"
+#import "ChangePositionVC.h"
 
 @interface MainViewController ()
 <
@@ -33,19 +34,20 @@ UICollectionViewDataSource
     if (self) {
         self.transitioningDelegate = self;
         [self initTitleView];
+        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_home"]];
     }
     return self;
 }
 
 - (void)initTitleView {
     
-    _titleView = [[TitleView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
-    _titleView.isTranslucent = NO;
-    _titleView.backgroundColor = COLORRGB(63, 143, 249);
-    _titleView.title = @"仓库管理";
-    _titleView.isTranslucent = YES;
-    _titleView.isLeftBtnRotation = YES;
-    setBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    _titleView                      = [[TitleView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
+    _titleView.isTranslucent        = NO;
+    _titleView.backgroundColor      = COLORRGB(63, 143, 249);
+    _titleView.title                = @"仓库管理";
+    _titleView.isTranslucent        = YES;
+    _titleView.isLeftBtnRotation    = YES;
+    setBtn                          = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [setBtn setImage:[UIImage imageNamed:@"set"] forState:UIControlStateNormal];
     setBtn.showsTouchWhenHighlighted = YES;
     [setBtn addTarget:self action:@selector(openSetPage:) forControlEvents:UIControlEventTouchUpInside];
@@ -56,17 +58,28 @@ UICollectionViewDataSource
 
 - (void)openSetPage :(UIButton *)sender {
 
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"此功能暂未开通，敬请期待" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [alert addAction:cancel];
     [FTPopOverMenu showForSender:sender withMenuArray:@[@"更新库存",@"更新货品",@"添加货品",@"注销用户"] imageArray:@[@"warehouse",@"refresh",@"add",@"logout"] doneBlock:^(NSInteger selectedIndex) {
         
         switch (selectedIndex) {
             case 0:
-                
+                [self presentViewController:alert animated:YES completion:^{
+                    
+                }];
                 break;
             case 1:
-                
+                [self presentViewController:alert animated:YES completion:^{
+                    
+                }];
                 break;
             case 2:
-                
+                [self presentViewController:alert animated:YES completion:^{
+                    
+                }];
                 break;
             case 3:
                 [self dismissViewControllerAnimated:YES completion:nil];
@@ -108,7 +121,7 @@ UICollectionViewDataSource
 
 - (void)initCollectionView {
     
-    self.layout = [[UICollectionViewFlowLayout alloc] init];
+    self.layout          = [[UICollectionViewFlowLayout alloc] init];
     // 定义大小
     self.layout.itemSize = CGSizeMake(kScreenWidth/3.5, kScreenWidth/3);
     // 设置最小行间距
@@ -116,10 +129,10 @@ UICollectionViewDataSource
     // 设置垂直间距
     self.layout.minimumInteritemSpacing = 2;
     // 设置滚动方向（默认垂直滚动）
-    self.layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64) collectionViewLayout:self.layout];
-    self.collectionView.delegate = self;
-    self.collectionView.dataSource = self;
+    self.layout.scrollDirection     = UICollectionViewScrollDirectionVertical;
+    self.collectionView             = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64) collectionViewLayout:self.layout];
+    self.collectionView.delegate    = self;
+    self.collectionView.dataSource  = self;
     self.collectionView.backgroundColor = [UIColor clearColor];
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MainCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:@"collectionCellID"];
     [self.view addSubview:self.collectionView];
@@ -159,6 +172,14 @@ UICollectionViewDataSource
     StockViewController *stockViewVC = [[StockViewController alloc] init];
     WarehousingDetailVC *wareHouseingDetailVC = [[WarehousingDetailVC alloc] init];
     InViewController *inVC = [[InViewController alloc] init];
+    ChangePositionVC *changePVC = [[ChangePositionVC alloc] init];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"此功能暂未开通，敬请期待" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [alert addAction:cancel];
+    
     switch (indexPath.row) {
         case 0:
 
@@ -191,10 +212,11 @@ UICollectionViewDataSource
             }];
             break;
         case 5:
-            
+            [self presentViewController:alert animated:YES completion:nil];
             break;
         case 6:
-            
+            changePVC.titleName = @"换位";
+            [self presentViewController:changePVC animated:YES completion:nil];
             break;
             
         default:

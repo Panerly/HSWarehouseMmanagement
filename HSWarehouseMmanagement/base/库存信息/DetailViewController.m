@@ -54,6 +54,7 @@ UITableViewDataSource
     _tableView.mj_header.automaticallyChangeAlpha = YES;
     _tableView.delegate     = self;
     _tableView.dataSource   = self;
+    _tableView.separatorStyle  = UITableViewCellSeparatorStyleSingleLineEtched;
     [_tableView registerNib:[UINib nibWithNibName:@"DetailTableViewCell" bundle:nil] forCellReuseIdentifier:@"detailCELLID"];
     [self.view addSubview:_tableView];
 }
@@ -133,6 +134,10 @@ UITableViewDataSource
     }
     cell.detailModel = self.dataArr[indexPath.row];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 - (void)didReceiveMemoryWarning {

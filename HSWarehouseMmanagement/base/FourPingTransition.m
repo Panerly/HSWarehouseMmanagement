@@ -48,9 +48,9 @@
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     
     //拿到button
-    UIButton *button = temp.view.subviews.lastObject;
+    UIButton *button        = temp.view.subviews.lastObject;
     
-    UIView *containerView = [transitionContext containerView];
+    UIView *containerView   = [transitionContext containerView];
     
     [containerView addSubview:toVC.view];
     

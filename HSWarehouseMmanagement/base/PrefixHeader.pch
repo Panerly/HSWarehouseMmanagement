@@ -18,12 +18,15 @@
 #define kScreenHeight [UIScreen mainScreen].bounds.size.height
 #define kScreenWidth [UIScreen mainScreen].bounds.size.width
 
-#define logApi @"http://192.168.3.170:8000/Ckmis/LoginServlet"
-#define stockApi @"http://192.168.3.170:8000/Ckmis/KcServlet"
-#define detailApi @"http://192.168.3.170:8000/Ckmis/SelectkcDetailServlet"
-#define rkmxApi @"http://192.168.3.170:8000/Ckmis/RkmxServlet"//入库明细
-#define ckmxApi @"http://192.168.3.170:8000/Ckmis/CkmxServlet"//出库明细
-#define tmcxApi @"http://192.168.3.170:8000/Ckmis/QueryServlet"//条码查询
+#define logApi @"http://60.191.39.206:8000/Ckmis/LoginServlet"              //登录接口
+#define stockApi @"http://60.191.39.206:8000/Ckmis/KcServlet"               //库存信息
+#define detailApi @"http://60.191.39.206:8000/Ckmis/SelectkcDetailServlet"  //库存详细信息
+#define rkmxApi @"http://60.191.39.206:8000/Ckmis/RkmxServlet"              //入库明细
+#define ckmxApi @"http://60.191.39.206:8000/Ckmis/CkmxServlet"              //出库明细
+#define tmcxApi @"http://60.191.39.206:8000/Ckmis/QueryServlet"             //条码查询
+#define ckApi @"http://60.191.39.206:8000/Ckmis/CkinfoServlet"              //出库
+#define rkApi @"http://60.191.39.206:8000/Ckmis/InsertServlet1"             //入库
+#define changePositonApi @"http://60.191.39.206:8000/Ckmis/TranspositionServlet"   //换位
 
 
 //define this constant if you want to use Masonry without the 'mas_' prefix
@@ -45,5 +48,8 @@
 #import "FTPopOverMenu.h"
 #import "JSONModel.h"
 #import "RAlertView.h"
+#import "FBShimmering.h"
+#import "FBShimmeringView.h"
+#import "SCToastView.h"
 
 #endif /* PrefixHeader_pch */

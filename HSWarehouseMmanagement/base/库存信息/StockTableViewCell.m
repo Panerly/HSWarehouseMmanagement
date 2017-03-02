@@ -19,9 +19,9 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    self.name.text = self.stockModel.name;
-    self.stockNum.text = self.stockModel.kcsl;
-    self.num.text = self.stockModel.txm;
+    self.name.text      = self.stockModel.name;
+    self.stockNum.text  = self.stockModel.kcsl;
+    self.num.text       = self.stockModel.txm;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

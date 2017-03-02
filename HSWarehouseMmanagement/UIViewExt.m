@@ -16,10 +16,10 @@ CGPoint CGRectGetCenter(CGRect rect)
 
 CGRect CGRectMoveToCenter(CGRect rect, CGPoint center)
 {
-    CGRect newrect = CGRectZero;
-    newrect.origin.x = center.x-CGRectGetMidX(rect);
-    newrect.origin.y = center.y-CGRectGetMidY(rect);
-    newrect.size = rect.size;
+    CGRect newrect      = CGRectZero;
+    newrect.origin.x    = center.x-CGRectGetMidX(rect);
+    newrect.origin.y    = center.y-CGRectGetMidY(rect);
+    newrect.size        = rect.size;
     return newrect;
 }
 
@@ -83,9 +83,9 @@ CGRect CGRectMoveToCenter(CGRect rect, CGPoint center)
 
 - (void) setHeight: (CGFloat) newheight
 {
-	CGRect newframe = self.frame;
-	newframe.size.height = newheight;
-	self.frame = newframe;
+	CGRect newframe         = self.frame;
+	newframe.size.height    = newheight;
+	self.frame              = newframe;
 }
 
 - (CGFloat) width
@@ -95,9 +95,9 @@ CGRect CGRectMoveToCenter(CGRect rect, CGPoint center)
 
 - (void) setWidth: (CGFloat) newwidth
 {
-	CGRect newframe = self.frame;
+	CGRect newframe     = self.frame;
 	newframe.size.width = newwidth;
-	self.frame = newframe;
+	self.frame          = newframe;
 }
 
 - (CGFloat) top
@@ -107,9 +107,9 @@ CGRect CGRectMoveToCenter(CGRect rect, CGPoint center)
 
 - (void) setTop: (CGFloat) newtop
 {
-	CGRect newframe = self.frame;
-	newframe.origin.y = newtop;
-	self.frame = newframe;
+	CGRect newframe     = self.frame;
+	newframe.origin.y   = newtop;
+	self.frame          = newframe;
 }
 
 - (CGFloat) left
@@ -119,9 +119,9 @@ CGRect CGRectMoveToCenter(CGRect rect, CGPoint center)
 
 - (void) setLeft: (CGFloat) newleft
 {
-	CGRect newframe = self.frame;
-	newframe.origin.x = newleft;
-	self.frame = newframe;
+	CGRect newframe     = self.frame;
+	newframe.origin.x   = newleft;
+	self.frame          = newframe;
 }
 
 - (CGFloat) bottom
@@ -131,9 +131,9 @@ CGRect CGRectMoveToCenter(CGRect rect, CGPoint center)
 
 - (void) setBottom: (CGFloat) newbottom
 {
-	CGRect newframe = self.frame;
-	newframe.origin.y = newbottom - self.frame.size.height;
-	self.frame = newframe;
+	CGRect newframe     = self.frame;
+	newframe.origin.y   = newbottom - self.frame.size.height;
+	self.frame          = newframe;
 }
 
 - (CGFloat) right
@@ -143,28 +143,28 @@ CGRect CGRectMoveToCenter(CGRect rect, CGPoint center)
 
 - (void) setRight: (CGFloat) newright
 {
-	CGFloat delta = newright - (self.frame.origin.x + self.frame.size.width);
-	CGRect newframe = self.frame;
-	newframe.origin.x += delta ;
-	self.frame = newframe;
+	CGFloat delta       = newright - (self.frame.origin.x + self.frame.size.width);
+	CGRect newframe     = self.frame;
+	newframe.origin.x   += delta ;
+	self.frame          = newframe;
 }
 
 // Move via offset
 - (void) moveBy: (CGPoint) delta
 {
-	CGPoint newcenter = self.center;
-	newcenter.x += delta.x;
-	newcenter.y += delta.y;
-	self.center = newcenter;
+	CGPoint newcenter   = self.center;
+	newcenter.x         += delta.x;
+	newcenter.y         += delta.y;
+	self.center         = newcenter;
 }
 
 // Scaling
 - (void) scaleBy: (CGFloat) scaleFactor
 {
-	CGRect newframe = self.frame;
-	newframe.size.width *= scaleFactor;
-	newframe.size.height *= scaleFactor;
-	self.frame = newframe;
+	CGRect newframe         = self.frame;
+	newframe.size.width     *= scaleFactor;
+	newframe.size.height    *= scaleFactor;
+	self.frame              = newframe;
 }
 
 // Ensure that both dimensions fit within the given size by scaling down

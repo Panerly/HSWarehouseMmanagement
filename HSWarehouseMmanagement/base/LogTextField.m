@@ -37,27 +37,27 @@ static const CGFloat lineWidth = 1;
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if(self = [super initWithFrame:frame]){
-        _textField = [[UITextField alloc]initWithFrame:CGRectZero];
-        _textField.borderStyle = UITextBorderStyleNone;
-        _textField.font = [UIFont systemFontOfSize:15.f];
-        _textField.textColor = [UIColor whiteColor];
-        _textField.delegate = self;
-        _textField.tintColor = [UIColor whiteColor];
+        _textField              = [[UITextField alloc]initWithFrame:CGRectZero];
+        _textField.borderStyle  = UITextBorderStyleNone;
+        _textField.font         = [UIFont systemFontOfSize:15.f];
+        _textField.textColor    = [UIColor whiteColor];
+        _textField.delegate     = self;
+        _textField.tintColor    = [UIColor whiteColor];
         [self addSubview:_textField];
         
-        _placeholderLabel = [[UILabel alloc]initWithFrame:CGRectZero];
-        _placeholderLabel.font = [UIFont systemFontOfSize:13.f];
+        _placeholderLabel           = [[UILabel alloc]initWithFrame:CGRectZero];
+        _placeholderLabel.font      = [UIFont systemFontOfSize:13.f];
         _placeholderLabel.textColor = [UIColor lightGrayColor];
         [self addSubview:_placeholderLabel];
         
-        _lineView = [[UIView alloc]initWithFrame:CGRectZero];
-        _lineView.backgroundColor = [UIColor lightGrayColor];
+        _lineView                   = [[UIView alloc]initWithFrame:CGRectZero];
+        _lineView.backgroundColor   = [UIColor lightGrayColor];
         [self addSubview:_lineView];
         
-        _lineLayer = [CALayer layer];
-        _lineLayer.frame = CGRectMake(0,0, 0, lineWidth);
-        _lineLayer.anchorPoint = CGPointMake(0, 0.5);
-        _lineLayer.backgroundColor = [UIColor whiteColor].CGColor;
+        _lineLayer                  = [CALayer layer];
+        _lineLayer.frame            = CGRectMake(0,0, 0, lineWidth);
+        _lineLayer.anchorPoint      = CGPointMake(0, 0.5);
+        _lineLayer.backgroundColor  = [UIColor whiteColor].CGColor;
         [_lineView.layer addSublayer:_lineLayer];
         
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(obserValue:) name:UITextFieldTextDidChangeNotification object:_textField];
@@ -69,9 +69,9 @@ static const CGFloat lineWidth = 1;
 -(void)layoutSubviews{
     [super layoutSubviews];
     
-    _textField.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)-lineWidth);
+    _textField.frame        = CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)-lineWidth);
     _placeholderLabel.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)-lineWidth);
-    _lineView.frame = CGRectMake(0, CGRectGetHeight(self.frame)-lineWidth, CGRectGetWidth(self.frame), lineWidth);
+    _lineView.frame         = CGRectMake(0, CGRectGetHeight(self.frame)-lineWidth, CGRectGetWidth(self.frame), lineWidth);
     [_textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
 }
 
@@ -127,16 +127,16 @@ static const CGFloat lineWidth = 1;
     [UIView animateWithDuration:0.15 animations:^{
         moveY += _placeholderLabel.frame.size.height/2 + heightSpaceing;
         moveX += padding;
-        _placeholderLabel.center = CGPointMake(moveX, moveY);
-        _placeholderLabel.alpha = 1;
-        _moved = NO;
-        _lineLayer.bounds = CGRectMake(0, 0, 0, lineWidth);
+        _placeholderLabel.center    = CGPointMake(moveX, moveY);
+        _placeholderLabel.alpha     = 1;
+        _moved                      = NO;
+        _lineLayer.bounds           = CGRectMake(0, 0, 0, lineWidth);
     }];
 }
 
 -(void)setLy_placeholder:(NSString *)ly_placeholder{
-    _ly_placeholder = ly_placeholder;
-    _placeholderLabel.text = ly_placeholder;
+    _ly_placeholder         = ly_placeholder;
+    _placeholderLabel.text  = ly_placeholder;
 }
 -(void)setCursorColor:(UIColor *)cursorColor{
     _textField.tintColor = cursorColor;

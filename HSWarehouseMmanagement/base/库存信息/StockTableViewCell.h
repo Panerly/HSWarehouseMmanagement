@@ -11,9 +11,9 @@
 
 @interface StockTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel *name;
-@property (weak, nonatomic) IBOutlet UILabel *stockNum;
-@property (weak, nonatomic) IBOutlet UILabel *num;
+@property (weak, nonatomic) IBOutlet UILabel *name;     //名称
+@property (weak, nonatomic) IBOutlet UILabel *stockNum; //库存数量
+@property (weak, nonatomic) IBOutlet UILabel *num;      //条形码号
 
 @property (nonatomic, strong) StockModel *stockModel;
 

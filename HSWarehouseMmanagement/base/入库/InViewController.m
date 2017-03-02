@@ -21,7 +21,10 @@ UIPickerViewDataSource
 >
 {
     UIButton *backBtn;
+    UILabel *_refreshLabel;
 }
+
+
 @end
 
 @implementation InViewController
@@ -38,12 +41,12 @@ UIPickerViewDataSource
 
 - (void)initTitleView {
     
-    _titleView = [[TitleView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
-    _titleView.title = self.titleName;
-    _titleView.isTranslucent = NO;
-    _titleView.backgroundColor = COLORRGB(63, 143, 249);
-    _titleView.isTranslucent = YES;
-    _titleView.isLeftBtnRotation = YES;
+    _titleView          = [[TitleView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
+    _titleView.title    = self.titleName;
+    _titleView.isTranslucent        = NO;
+    _titleView.backgroundColor      = COLORRGB(63, 143, 249);
+    _titleView.isTranslucent        = YES;
+    _titleView.isLeftBtnRotation    = YES;
     backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [backBtn setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     backBtn.showsTouchWhenHighlighted = YES;
@@ -89,7 +92,7 @@ UIPickerViewDataSource
     //保存按钮
     _saveBtn = [[UIButton alloc] init];
     [_saveBtn setImage:[UIImage imageNamed:@"save"] forState:UIControlStateNormal];
-    [_saveBtn addTarget:self action:@selector(saveBtn) forControlEvents:UIControlEventTouchUpInside];
+    [_saveBtn addTarget:self action:@selector(updateDataSouce) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_saveBtn];
     [_saveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view.mas_bottom).with.offset(-59);
@@ -98,26 +101,154 @@ UIPickerViewDataSource
     }];
 }
 
+- (void)updateDataSouce {
+    
+    NSString *logInUrl;
+    if ([self.titleName isEqualToString:@"出库"]) {
+        logInUrl = [NSString stringWithFormat:@"%@",ckApi];
+    }else {
+        logInUrl = [NSString stringWithFormat:@"%@",rkApi];
+    }
+    
+    NSURLSessionConfiguration *config   = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
+    AFHTTPSessionManager *manager       = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:config];
+    manager.requestSerializer.timeoutInterval = 10;
+    
+    AFHTTPResponseSerializer *serializer    = manager.responseSerializer;
+    
+    serializer.acceptableContentTypes       = [serializer.acceptableContentTypes setByAddingObject:@"text/html"];
+    
+    __weak typeof(self) weakSelf            = self;
+    
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    if ([_rkslTextField.text isEqualToString:@""]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"出入库数量不能为空" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:cancel];
+        [self presentViewController:alert animated:YES completion:^{
+            
+        }];
+    }
+    if ([_txmhTextField.text isEqualToString:@""]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"条形码号不能为空" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:cancel];
+        [self presentViewController:alert animated:YES completion:^{
+            
+        }];
+    }
+    if ([_kwbhTextField.text isEqualToString:@""]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"库位编号不能为空" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:cancel];
+        [self presentViewController:alert animated:YES completion:^{
+            
+        }];
+    }
+    if ([_bhLabel.text isEqualToString:@""]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"编号不能为空" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:cancel];
+        [self presentViewController:alert animated:YES completion:^{
+            
+        }];
+    }
+    if ([_rkDateLabel.text isEqualToString:@""]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"入库日期不能为空" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:cancel];
+        [self presentViewController:alert animated:YES completion:^{
+            
+        }];
+    }
+    if ([_kcsl.text isEqualToString:@""]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"库存数量不能为空" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:cancel];
+        [self presentViewController:alert animated:YES completion:^{
+            
+        }];
+    }
+    NSString *crkDate;
+    NSString *crksl;
+    if ([self.titleName isEqualToString:@"入库"]) {
+        crkDate = @"rkrq";
+        crksl   = @"rksl";
+    }else{
+        crkDate = @"ckrq";
+        crksl   = @"cksl";
+    }
+    
+    NSDictionary *parameters = @{
+                                 crksl:_rkslTextField.text,
+                                 @"wlbh":_txmhTextField.text,
+                                 @"kwbh":_kwbhTextField.text,
+                                 @"bh":_bhLabel.text,
+                                 crkDate:_rkDateLabel.text,
+                                 @"kcsl":_kcslLabel.text,
+                                 @"Phone":@"iOS"
+                                 };
+    
+    NSURLSessionTask *task =[manager POST:logInUrl parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        if (responseObject) {
+            if ([[responseObject objectAtIndex:0] isEqualToString:@"1"]) {
+                [SCToastView showInView:self.view text:@"入库成功" duration:.5 autoHide:YES];
+                
+                weakSelf.rkslTextField.text = @"";
+            }else if ([[responseObject objectAtIndex:0] isEqualToString:@"0"]) {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:[weakSelf.titleName isEqualToString:@"入库"]?@"入库失败":@"出库失败" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+                [alert addAction:cancel];
+                [weakSelf presentViewController:alert animated:YES completion:nil];
+                
+            }else if ([[responseObject objectAtIndex:0] isEqualToString:@"9"]) {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"库位不存在" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+                [alert addAction:cancel];
+                [weakSelf presentViewController:alert animated:YES completion:nil];
+            }
+
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"%@",error] preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        [alert addAction:confirm];
+        [self presentViewController:alert animated:YES completion:^{
+            
+        }];
+    }];
+    [task resume];
+    
+}
+
 - (void)setUI {
+    
     //条形码号
-    _txmh = [[UILabel alloc] init];
-    _txmh.text = @"条形码号：";
+    _txmh       = [[UILabel alloc] init];
+    _txmh.text  = @"条形码号：";
     [_scrollView addSubview:_txmh];
     [_txmh mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_scrollView.mas_top).with.offset(75);
         make.left.equalTo(_scrollView.mas_left).with.offset(5);
         
     }];
-    _txmhTextField = [[UITextField alloc] init];
-    _txmhTextField.placeholder = @"扫码或输入";
-    _txmhTextField.borderStyle = UITextBorderStyleRoundedRect;
-    _txmhTextField.font        = [UIFont systemFontOfSize:13];
+    _txmhTextField              = [[UITextField alloc] init];
+    _txmhTextField.placeholder  = @"扫码或输入";
+    _txmhTextField.borderStyle  = UITextBorderStyleRoundedRect;
+    _txmhTextField.font         = [UIFont systemFontOfSize:13];
     [_scrollView addSubview:_txmhTextField];
     [_txmhTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_txmh.mas_right).with.offset(5);
         make.centerY.equalTo(_txmh.mas_centerY);
         make.size.equalTo(CGSizeMake(150, 25));
     }];
+    [_txmhTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    
     _scanBtn1 = [[UIButton alloc] init];
     _scanBtn1.tag = 200;
     [_scanBtn1 addTarget:self action:@selector(begainScan) forControlEvents:UIControlEventTouchUpInside];
@@ -133,8 +264,8 @@ UIPickerViewDataSource
     }];
 
     //库位编号
-    _kwbh = [[UILabel alloc] init];
-    _kwbh.text = @"库位编号：";
+    _kwbh       = [[UILabel alloc] init];
+    _kwbh.text  = @"库位编号：";
     [_scrollView addSubview:_kwbh];
     [_kwbh mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_txmh.mas_bottom).with.offset(10);
@@ -263,7 +394,13 @@ UIPickerViewDataSource
     
     //入库数量
     _rksl = [[UILabel alloc] init];
-    _rksl.text = @"入库数量：";
+    if ([self.titleName isEqualToString:@"入库"]) {
+        
+        _rksl.text = @"入库数量：";
+    }else {
+        
+        _rksl.text = @"出库数量：";
+    }
     [_scrollView addSubview:_rksl];
     [_rksl mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_jldw.mas_bottom).with.offset(10);
@@ -297,15 +434,15 @@ UIPickerViewDataSource
     }];
     
     //分类
-    _fl = [[UILabel alloc] init];
-    _fl.text = @"分        类：";
+    _fl         = [[UILabel alloc] init];
+    _fl.text    = @"分        类：";
     [_scrollView addSubview:_fl];
     [_fl mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_kcsl.mas_bottom).with.offset(10);
         make.left.equalTo(_scrollView.mas_left).with.offset(5);
     }];
-    _flLabel = [[UILabel alloc] init];
-    _flLabel.text = @"";
+    _flLabel        = [[UILabel alloc] init];
+    _flLabel.text   = @"";
     [_scrollView addSubview:_flLabel];
     [_flLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_fl.mas_right).with.offset(5);
@@ -314,15 +451,15 @@ UIPickerViewDataSource
     }];
     
     //品牌
-    _pinp = [[UILabel alloc] init];
-    _pinp.text = @"品        牌:";
+    _pinp       = [[UILabel alloc] init];
+    _pinp.text  = @"品        牌：";
     [_scrollView addSubview:_pinp];
     [_pinp mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_fl.mas_bottom).with.offset(10);
         make.left.equalTo(_scrollView.mas_left).with.offset(5);
     }];
-    _pingpLabel = [[UILabel alloc] init];
-    _pingpLabel.text = @"";
+    _pingpLabel         = [[UILabel alloc] init];
+    _pingpLabel.text    = @"";
     [_scrollView addSubview:_pingpLabel];
     [_pingpLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_pinp.mas_right).with.offset(5);
@@ -369,7 +506,7 @@ UIPickerViewDataSource
         make.right.equalTo(self.view.mas_right);
     }];
     //获取系统当前时间
-    [formatter setDateFormat:@"yyyyMMdd hhmmss"];
+    [formatter setDateFormat:@"yyyy/MM/dd hh:mm:ss"];
     NSString *currentTimeStr      = [formatter stringFromDate:[NSDate date]];
     _rkDateLabel.text = currentTimeStr;
 }
@@ -400,7 +537,7 @@ UIPickerViewDataSource
         
         if (successString == nil) {
             
-            UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"本地库中不存在此户信息！\n请更新本地库或检查条码信息！" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"库中不存在此户信息！\n请更新或检查条码信息！" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 
             }];
@@ -417,7 +554,27 @@ UIPickerViewDataSource
     [self presentViewController:viewController animated:YES completion:nil];
 }
 
+- (void)addshimmeringView :(UIView *)view{
+    FBShimmeringView *shimmeringView           = [[FBShimmeringView alloc] initWithFrame:view.bounds];
+    shimmeringView.shimmering                  = YES;
+    shimmeringView.shimmeringBeginFadeDuration = 0.4;
+    shimmeringView.shimmeringOpacity           = 0.4f;
+    shimmeringView.shimmeringAnimationOpacity  = 1.f;
+    [self.view addSubview:shimmeringView];
+    shimmeringView.center                      = self.view.center;
+    shimmeringView.contentView                 = view;
+    shimmeringView.multipleTouchEnabled        = NO;
+}
+
 - (void)requestOutData :(NSString *)txmh{
+    if (!_refreshLabel) {
+        
+        _refreshLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
+        _refreshLabel.text = @"正在加载中...";
+        [self.view addSubview:_refreshLabel];
+        [self addshimmeringView:_refreshLabel];
+    }
+    [_txmhTextField resignFirstResponder];
     
     NSString *logInUrl                  = [NSString stringWithFormat:@"%@",tmcxApi];
     
@@ -440,6 +597,8 @@ UIPickerViewDataSource
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
+        [_refreshLabel removeFromSuperview];
+        _refreshLabel = nil;
         if (responseObject) {
             
             NSError *error;
@@ -453,20 +612,34 @@ UIPickerViewDataSource
                 }
                 
             }
-            _txmhTextField.text = ((InModel *)weakSelf.dataArr[0]).txm;
-            _kwbhTextField.text = ((InModel *)weakSelf.dataArr[0]).kwbh;
-            _nameLabel.text = ((InModel *)weakSelf.dataArr[0]).mc;
-            _kwNameLabel.text = ((InModel *)weakSelf.dataArr[0]).kwmc;
-            _ggLabel.text = ((InModel *)weakSelf.dataArr[0]).gg;
-            _modelLabel.text = ((InModel *)weakSelf.dataArr[0]).xh;
-            _jldwLabel.text = ((InModel *)weakSelf.dataArr[0]).jldw;
-            _kcslLabel.text = ((InModel *)weakSelf.dataArr[0]).kcsl;
-            _flLabel.text = ((InModel *)weakSelf.dataArr[0]).fl;
-            _pingpLabel.text = ((InModel *)weakSelf.dataArr[0]).pp;
+            if (weakSelf.dataArr.count>0) {
+                
+                _txmhTextField.text = ((InModel *)weakSelf.dataArr[0]).txm;
+                _kwbhTextField.text = ((InModel *)weakSelf.dataArr[0]).kwbh;
+                _nameLabel.text = ((InModel *)weakSelf.dataArr[0]).mc;
+                _kwNameLabel.text = ((InModel *)weakSelf.dataArr[0]).kwmc;
+                _ggLabel.text = ((InModel *)weakSelf.dataArr[0]).gg;
+                _modelLabel.text = ((InModel *)weakSelf.dataArr[0]).xh;
+                _jldwLabel.text = ((InModel *)weakSelf.dataArr[0]).jldw;
+                _kcslLabel.text = ((InModel *)weakSelf.dataArr[0]).kcsl;
+                _flLabel.text = ((InModel *)weakSelf.dataArr[0]).fl;
+                _pingpLabel.text = ((InModel *)weakSelf.dataArr[0]).pp;
+            }else{
+                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"此条码号暂无库存信息，请检查后重试" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    
+                }];
+                [alertVC addAction:cancel];
+                [weakSelf presentViewController:alertVC animated:YES completion:^{
+                    
+                }];
+                
+            }
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+        [_refreshLabel removeFromSuperview];
+        _refreshLabel = nil;
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"%@",error] preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             
@@ -558,7 +731,16 @@ UIPickerViewDataSource
     }
     return YES;
 }
-
+- (void)textFieldDidChange:(UITextField *)textField {
+    if (textField == self.txmhTextField) {
+        
+        if (textField.text.length >= 14 && textField.text.length < 16) {
+            [self requestOutData:textField.text];
+        }else if (textField.text.length >16){
+            [SCToastView showInView:self.view text:@"请检查条码号，条码号不能超过15位" duration:1.5 autoHide:YES];
+        }
+    }
+}
 /*
 #pragma mark - Navigation
 

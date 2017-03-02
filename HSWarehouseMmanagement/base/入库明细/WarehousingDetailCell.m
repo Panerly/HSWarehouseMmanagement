@@ -69,10 +69,10 @@
     }
     
     if ([((WarehousingDetailVC*)[self findVC]).titleName isEqualToString:@"入库明细"]) {
-        self.date.text = @"入库时间：";
+        self.date.text  = @"入库时间：";
         self.rkNum.text = @"入库数量：";
     }else{
-        self.date.text = @"出库时间：";
+        self.date.text  = @"出库时间：";
         self.rkNum.text = @"出库数量：";
     }
     
